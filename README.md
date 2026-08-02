@@ -20,4 +20,4 @@ OrientationMonitor.exe test
 
 Cycles through all four orientations with 1 second delay, sending each to the driver
 
-Or just install it using INF
+Or just install it using INF or SC
