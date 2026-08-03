@@ -98,14 +98,9 @@ static BOOL SendOrientation(ORIENTATION_STATE state)
 
 static ORIENTATION_STATE MapOrientation(SimpleOrientation value)
 {
-    switch (value)
-    {
-    case SimpleOrientation_NotRotated:                        return ORIENTATION_PORTRAIT;
-    case SimpleOrientation_Rotated180DegreesCounterclockwise: return ORIENTATION_PORTRAIT_REVERSED;
-    case SimpleOrientation_Rotated270DegreesCounterclockwise: return ORIENTATION_LANDSCAPE_270;
-    case SimpleOrientation_Rotated90DegreesCounterclockwise:  return ORIENTATION_LANDSCAPE_90;
-    default:                                                  return ORIENTATION_PORTRAIT;
-    }
+    if (value >= SimpleOrientation_NotRotated && value <= SimpleOrientation_Rotated270DegreesCounterclockwise)
+        return (ORIENTATION_STATE)value;
+    return ORIENTATION_PORTRAIT;
 }
 
 class OrientationHandler WrlFinal :
@@ -238,20 +233,27 @@ int main(int argc, char *argv[])
 {
     if (argc > 1 && strcmp(argv[1], "test") == 0)
     {
-        printf("OrientationMonitor: test\n");
-        printf("test PORTRAIT\n");
-        SendOrientation(ORIENTATION_PORTRAIT);
-        Sleep(1000);
-        printf("test LANDSCAPE_90\n");
-        SendOrientation(ORIENTATION_LANDSCAPE_90);
-        Sleep(1000);
-        printf("test PORTRAIT_REVERSED\n");
-        SendOrientation(ORIENTATION_PORTRAIT_REVERSED);
-        Sleep(1000);
-        printf("test LANDSCAPE_270\n");
-        SendOrientation(ORIENTATION_LANDSCAPE_270);
-        printf("end of test\n");
-        return 0;
+        if (argc < 2) {
+            printf("OrientationMonitor: test\n");
+            printf("test PORTRAIT\n");
+            SendOrientation(ORIENTATION_PORTRAIT);
+            Sleep(1000);
+            printf("test LANDSCAPE_90\n");
+            SendOrientation(ORIENTATION_LANDSCAPE_90);
+            Sleep(1000);
+            printf("test PORTRAIT_REVERSED\n");
+            SendOrientation(ORIENTATION_PORTRAIT_REVERSED);
+            Sleep(1000);
+            printf("test LANDSCAPE_270\n");
+            SendOrientation(ORIENTATION_LANDSCAPE_270);
+            printf("end of test\n");
+            return 0;
+        }
+        else {
+            SendOrientation((ORIENTATION_STATE)atoi(argv[2]));
+            printf("OrientationMonitor: test %d\n", atoi(argv[2]));
+            return 0;
+        }
     }
 
     SERVICE_TABLE_ENTRYA table[] = {
