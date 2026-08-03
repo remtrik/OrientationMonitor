@@ -25,7 +25,7 @@ OrientationMonitor.exe = 1,,
 
 [Standard.NT$ARCH$]
 %OrientationMonitor.DeviceDesc%=OrientationMonitor_Device, Root\OrientationMonitor
-
+;%OrientationMonitor.DeviceDesc%=OrientationMonitor_Device, ACPI\QCOM05D2 ; use this in case you want to replace QC Audio Orientation Service
 [OrientationMonitor_Device.NT]
 CopyFiles=OrientationMonitor_Dir
 
